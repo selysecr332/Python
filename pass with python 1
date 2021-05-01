@@ -12,3 +12,35 @@ while again =="y":
     if passs == 1234:
         break
         
+**********************************************************************************************************************************************************************************
+برنامج اسم المستخدم و كلمه سر كلما ادخل المسخدم كلمة سر او اسم غلط يساله مره اخري
+
+
+name = str(input("Enter Your Name pls: \n"))
+word = int(input("Enter The pass pls: \n"))
+
+again = "name"
+
+while again != name:
+    name2 = str(input("Enter the name That you have made\n"))
+    if name == name2:
+            print("\nthe nexst\n")
+    else:
+            print("\nEnter agein pls\n")
+
+    if name == name2:
+        break
+
+
+again = "word"
+while again != word:
+    word2 = int(input("\nEnter The pass That you have made\n"))
+    if word == word2:
+        print("\nYou can Entre!!\n")
+    else:
+        print("Enter Again pls !!!!")
+
+    if word == word2:
+        break
+
+input("\n\nEntre anything to exit....")
