@@ -1,0 +1,14 @@
+
+again ="y"
+while again =="y":
+    passs = int(input("Enter The Password: \n"))
+
+    if passs == 1234 :
+        print("The Password is true\n")
+    else:
+        print("This password  notrue >>>\n")
+        print("\nEnert The ntherone\n")
+
+    if passs == 1234:
+        break
+        
