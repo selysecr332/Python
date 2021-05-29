@@ -1,0 +1,71 @@
+import requests
+import lxml
+from bs4 import BeautifulSoup
+import csv
+from itertools import zip_longest
+
+jop_titles = []
+company_name = []
+location_companys = []
+job_skills = []
+linkes = []
+salary = []
+
+
+# **********************************2nd step use requests to fetch the url*********************************************
+#  نستخدم مكتبة requests علشان نعرف نصل لموقع الي عاوزينه عن طريق عمل متغير
+
+result = requests.get("https://wuzzuf.net/search/jobs/?q=python&a=hpb")
+
+
+# ***********************************3rd step save page content/markup*************************************************
+# عن طرقية هندخل علي الصفحة وعلشان ترجعلي محتوي لبصفحة  source هنعمل متغير اسمه
+
+src = result.content
+#print(src)
+
+#  ***********************************4th step create soup object to parse content ************************************
+#هنتعامل مع الصفحة و نسترخ منها معلومات عن طريق مكتبة BeautifulSoup
+soup = BeautifulSoup(src, "lxml")
+
+#5th step find the elements containing  info we need
+#  هنبداء نطلع معلومات من الصفحة زي الاسم و الخبرة الي اخر
+
+job_titles = soup.find_all("h2", {"class": "css-m604qf"})
+company_name = soup.find_all("a", {"class": "css-17s97q8"})
+location_companys = soup.find_all("span", {"class": "css-5wys0k"})
+ #job_skills = soup.find_all("div", {"class":""})
+ #print(job_skills)
+                             
+
+#6th step loop oner returned lists to exract needed info
+
+for i in range(len(job_titles)):
+    job_titles.append(job_titles[i].text)
+    # هنستخرج الربط هنا
+    linkes.append(job_titles[i].find("a").attrs['href'])
+    company_name.append(company_name[i].text)
+    location_companys.append(location_companys[i].text)
+  #  job_skills.append(job_skills[i].text)
+
+# هعمل لوب تدخل في كل رابك من الروابط الي فوق و تجيب المبلغ منها
+
+for link in linkes:
+    result = requests.get(link)
+    src = result.content
+    soup = BeautifulSoup(src, "lxml")
+    salaries = soup.find("div", {"class": "css-rcl8e5"})
+    salary.append(salaries.text)
+
+
+
+#7th create csv file and fill it
+
+file_list = [job_titles, company_name, location_companys, linkes, salary]
+exported = zip_longest(*file_list)
+
+
+with open("D:\الكلية\تكنولوجيا البرمجة ТП/jobstest.csv","w") as myfile:
+    wr = csv.writer(myfile)
+    wr.writerow(["Job Title", "companys name", "companys lpcation","Linkes","salaries  "])
+    wr.writerows(exported)
