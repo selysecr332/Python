@@ -1,0 +1,178 @@
+
+
+import turtle
+
+wind = turtle.Screen()
+wind.title("Ping pong By me")
+wind.bgcolor("black")
+
+wind.setup(width=800, height=600)
+wind.tracer(0)
+
+
+#الشمال اليمين
+madrab1 = turtle.Turtle()
+madrab1.speed(0)
+madrab1.shape("square")
+madrab1.color("blue")
+madrab1.shapesize(stretch_wid=5,stretch_len=1)
+madrab1.penup()
+madrab1.goto(-350, 0)
+
+
+
+
+
+
+
+#العصاية اليمين
+madrab2 = turtle.Turtle()
+madrab2.speed(0)
+madrab2.shape("square")
+madrab2.color("red")
+madrab2.shapesize(stretch_wid=5,stretch_len=1)
+madrab2.penup()
+madrab2.goto(350, 0)
+
+
+madrab3 = turtle.Turtle()
+madrab3.speed(0)
+madrab3.shape("square")
+madrab3.color("white")
+madrab3.shapesize(stretch_wid=100,stretch_len=1)
+madrab3.penup()
+madrab3.goto(0, 0)
+
+
+
+
+
+madrab4 = turtle.Turtle()
+madrab4.speed(0)
+madrab4.shape("circle")
+madrab4.color("white")
+madrab4.shapesize(stretch_wid=10,stretch_len=10)
+madrab4.penup()
+madrab4.goto(0,0)
+
+#الكره
+ball5 = turtle.Turtle()
+ball5.speed(0)
+ball5.shape("circle")
+ball5.color("yellow")
+ball5.shapesize(stretch_wid=2,stretch_len=2)
+ball5.penup()
+ball5.goto(0,0)
+ball5.dx = .6  #يمين
+ball5.dy = .6  #فوق
+
+#score =
+score1 = 0
+score2 = 0
+score = turtle.Turtle()
+score.speed(0)
+score.color("white")
+score.penup()
+score.hideturtle()
+score.goto(0, 260)
+score.write("Player 1: 0   Player 2: 0 " , align="center", font=("Courier",24, "normal"))
+
+
+#function
+
+# دا المضرب الاول
+#هنا هيتحرك لي فوق
+def madrab1_up():
+    y = madrab1.ycor()
+    y += 40
+    madrab1.sety(y)
+
+#هنا هيتحرك لتحت
+def madrab1_down():
+        y = madrab1.ycor()
+        y -= 240
+        madrab1.sety(y)
+
+    #keyboard
+wind.listen()
+wind.onkeypress(madrab1_up, "w")
+wind.onkeypress(madrab1_down, "s")
+
+
+
+
+#هنا هيتحرك لي فوق
+def madrab2_up():
+    y = madrab2.ycor()
+    y += 40
+    madrab2.sety(y)
+
+#هنا هيتحرك لتحت
+def madrab2_down():
+        y = madrab2.ycor()
+        y -= 40
+        madrab2.sety(y)
+
+    #keyboard
+wind.listen()
+wind.onkeypress(madrab1_up, "w")
+wind.onkeypress(madrab1_down, "s")
+wind.onkeypress(madrab2_up, "Up")
+wind.onkeypress(madrab2_down, "Down")
+
+
+# function
+
+while True:
+    wind.update()
+    # move ball
+
+    ball5.setx(ball5.xcor() + ball5.dx)
+    ball5.sety(ball5.ycor() + ball5.dy)
+
+
+
+#border check
+
+
+
+
+    if ball5.ycor() > 290:
+        ball5.sety(290)
+        ball5.dy *= -1
+
+    if ball5.ycor() <- 290:
+        ball5.sety(-290)
+        ball5.dy *= -1
+
+
+
+    if ball5.xcor() > 390:
+        ball5.goto(0, 0)
+        ball5.dx *= -1
+        score1 += 1
+        score.clear()
+        score.write("Player 1: {}   Player 2: {} ".format(score1, score2), align="center", font=("Courier", 24, "normal"))
+
+
+
+    if ball5.xcor() <- 390:
+        ball5.goto(0, 0)
+        ball5.dx *= -1
+        score2 += 1
+        score.clear()
+        score.write("Player 1: {}   Player 2: {} ".format(score1, score2), align="center", font=("Courier", 24, "normal"))
+
+
+
+# هنا هنخلي الكره لما تخبط في المضارب ترجع تاني
+
+
+    if(ball5.xcor() > 340 and ball5. xcor() < 350) and  (ball5.ycor() < madrab2.ycor() + 40 and ball5.ycor() > madrab2.ycor() -40):
+        ball5.setx(340)
+        ball5.dx *= -1
+
+    if (ball5.xcor() < -340 and ball5.xcor() > -350) and (
+            ball5.ycor() < madrab2.ycor() + 40 and ball5.ycor() > madrab1.ycor() - 40):
+        ball5.setx(-340)
+        ball5.dx *= -1
